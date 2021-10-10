@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Add new form</h2>
+
+    <form  th:action="@{/admin/save}"  th:object="${product}" method="post">
+        <div class="form-group">
+            <label for="pid">Product Id:</label>
+            <input type="text" th:field="*{product_id}" readonly="readonly" class="form-control" id="pid" placeholder="Enter Product id" name="pid">
+        </div>
+        <div class="form-group">
+            <label for="name">Name :</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter Product name" name="name">
+        </div>
+        <div class="form-group">
+            <label for="oldprice">old price :</label>
+            <input type="text" th:field="*{oldprice}" class="form-control" id="oldprice" placeholder="Old Price" name="oldprice">
+        </div>
+        <div class="form-group">
+            <label for="price"> price :</label>
+            <input type="text" th:field="*{price}"class="form-control" id="price" placeholder="Enter Price" name="price">
+        </div>
+        <div class="form-group">
+            <label for="quantity"> Quantity :</label>
+            <input type="text" th:field="*{quantity}" class="form-control" id="quantity" placeholder="Enter Quantity" name="quantity">
+        </div>
+        <div class="form-group">
+            <label for="image"> Image :</label>
+            <input type="text" th:field="*{images}" class="form-control" id="image" placeholder="Enter images" name="name">
+        </div>
+        <div class="form-group">
+            <label for="color"> color :</label>
+            <input type="text" th:field="*{color}" class="form-control" id="color" placeholder="Enter color" name="color">
+        </div>
+        <div class="form-group">
+            <label for="description"> Description :</label>
+            <input type="text" th:field="*{description}" class="form-control" id="description" placeholder="Enter Description" name="description">
+        </div>
+        <div class="form-group">
+            <label for="category"> category :</label>
+            <input type="text" th:field="*{category}" class="form-control" id="category" placeholder="Enter category" name="category">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

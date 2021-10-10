@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/admin/product}]]";
+    }
+</script>
+<body>
+<div class="container">
+    <h2>Product Table</h2>
+<!--    <form th:action="@{/admin/product}">-->
+<!--        Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />-->
+<!--        &nbsp;-->
+<!--        <input type="submit" value="Search" />-->
+<!--        &nbsp;-->
+<!--        <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />-->
+<!--    </form>-->
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Product Id :</th>
+            <th>Name :</th>
+            <th>Price :</th>
+            <th>Quantity :</th>
+            <th>images :</th>
+            <th>color :</th>
+            <th>Description:</th>
+            <th>ADD :</th>
+            <th>Edit :</th>
+            <th>Delete:</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${listProduct}">
+            <td th:text="${p.product_id}">product Id</td>
+            <td th:text="${p.name}">Name</td>
+            <td th:text="${p.price}">price</td>
+            <td th:text="${p.quantity}">Quantity</td>
+            <Td><img th:src="@{'/img/products/'+${p.images}}" alt="erro" width="100px" height="100px"></Td>
+            <td th:text="${p.color}">color</td>
+            <Td th:text="${p.description}">description</Td>
+            <td><a th:href="@{'addProduct'}">Add</a></td>
+            <td><a th:href="@{'edit/'+${p.product_id}}">Edit</a></td>
+            <td><a th:href="@{'delete/'+${p.product_id}}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${totalPages > 1}">
+    <div class="row col-sm-10">
+        <div class="col-sm-2">
+            Total Rows: [[${totalItems}]]
+        </div>
+        <div class="col-sm-1">
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${currentPage != i}" th:href="@{'/admin/page/' + ${i}}">[[${i}]]</a>
+      <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+            </span>
+        </div>
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/admin/page/' + ${currentPage + 1}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span>
+        </div>
+
+        <div class="col-sm-1">
+            <a th:if="${currentPage < totalPages}" th:href="@{'/admin/page/' + ${totalPages}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </div>
+    </div>
+</body>
+</html>
