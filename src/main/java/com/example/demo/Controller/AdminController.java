@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 import com.example.demo.Model.Products;
+import com.example.demo.Model.Users;
 import com.example.demo.Respository.ProductRpos;
+import com.example.demo.Respository.UserRespository;
 import com.example.demo.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,8 @@ public class AdminController {
     ProductRpos productRpos;
     @Autowired
     ProductService productService;
+    @Autowired
+    UserRespository userRespository;
     @GetMapping("/product")
     public String getAllProduct(Model model, @Param("keyword") String keyword){
 //        List<Products> products = productService.listAll(keyword);
@@ -61,5 +65,16 @@ public class AdminController {
         model.addAttribute("listProduct",products);
         model.addAttribute("keyword", keyword);
         return "/Admin/home";
+    }
+    @GetMapping("/user")
+    public String GetUser(Model model){
+            List<Users> user = userRespository.findAll();
+            model.addAttribute("user",user);
+        return "/Admin/User";
+    }
+    @GetMapping("deleteUser/{id}")
+    public String deleteByidUser(@PathVariable("id") int id){
+        userRespository.deleteById(id);
+        return "redirect:/admin/user";
     }
 }
