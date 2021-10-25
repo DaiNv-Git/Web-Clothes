@@ -118,4 +118,9 @@ public class HomeController {
 	public String error403() {
 		return"403";
 	}
+	//cart
+	@GetMapping("/cart")
+	public String cart(){
+		return "shopping-cart";
+	}
 }

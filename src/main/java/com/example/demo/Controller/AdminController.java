@@ -4,6 +4,7 @@ import com.example.demo.Model.Users;
 import com.example.demo.Respository.ProductRpos;
 import com.example.demo.Respository.UserRespository;
 import com.example.demo.Service.ProductService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -66,6 +67,7 @@ public class AdminController {
         model.addAttribute("keyword", keyword);
         return "/Admin/home";
     }
+    //User
     @GetMapping("/user")
     public String GetUser(Model model){
             List<Users> user = userRespository.findAll();
@@ -76,5 +78,28 @@ public class AdminController {
     public String deleteByidUser(@PathVariable("id") int id){
         userRespository.deleteById(id);
         return "redirect:/admin/user";
+    }
+    @GetMapping("/500")
+    public  String erro500(){
+    return "Admin/505";
+    }
+    @RequestMapping("/addUser")
+    public String addUser(Model model){
+        Users user = new Users();
+        model.addAttribute("user",user);
+        return "Admin/Add_User";
+    }
+    //
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") Users users){
+        userRespository.save(users);
+        return "redirect:/admin/user";
+    }
+    @GetMapping("editUser/{id}")
+    public ModelAndView EditByidUser(@PathVariable("id") int id){
+        ModelAndView mv = new ModelAndView("Admin/User_Edit");
+        Users users= userRespository.findById(id).get();
+        mv.addObject("user",users);
+        return mv;
     }
 }

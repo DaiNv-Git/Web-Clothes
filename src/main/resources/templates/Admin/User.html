@@ -28,9 +28,9 @@
         <td th:text="${u.password}">password</td>
         <td th:text="${u.email}">email</td>
         <td th:text="${u.enabled}">enabled</td>
-        <Td><a href="#">add</a></Td>
+        <Td><a th:href="@{'addUser'}">add</a></Td>
         <Td><a th:href="@{'deleteUser/'+${u.id}}">delete</a></Td>
-        <Td><a href="#">Update</a></Td>
+        <Td><a th:href="@{'editUser/'+${u.id}}">Update</a></Td>
     </tr>
     </tbody>
 </table>

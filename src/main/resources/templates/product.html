@@ -368,7 +368,7 @@
                             </div>
                             <div class="pd-desc">
                                 <p th:text="${detail.description}"></p>
-                                <h4 th:text="${detail.price}">price <span>629.99</span></h4>
+                                <h4 th:text="${detail.price}" th:name="qty">price <span>629.99</span></h4>
                             </div>
                             <div class="pd-color">
                                 <h6>Color</h6>
@@ -409,7 +409,11 @@
                                 <div class="pro-qty">
                                     <input type="text" value="1">
                                 </div>
-                                <a href="#" class="primary-btn pd-cart">Add To Cart</a>
+                                <form th:action="@{/cart/add}" method="post">
+                                    <input type="hidden" name="product_id" th:value="${detail.product_id}">
+                                    <button class="primary-btn pd-cart">Add To Cart</button>
+                                </form>
+
                             </div>
                             <ul class="pd-tags">
                                 <li><span>CATEGORIES</span>: More Accessories, Wallets & Cases</li>

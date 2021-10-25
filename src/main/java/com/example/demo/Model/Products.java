@@ -14,7 +14,7 @@ public class Products {
     private int product_id;
     private String name;
     private String oldprice;
-    private String price;
+    private double price;
     private String quantity;
     private String images;
     private String color;
