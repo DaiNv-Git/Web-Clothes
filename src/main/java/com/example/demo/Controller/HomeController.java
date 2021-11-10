@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,18 +87,23 @@ public class HomeController {
 		model.addAttribute("user", user);
 		return"register";
 	}
+	//Registor
 	@PostMapping("/save")
-	public String SaveRegistor(@ModelAttribute("user") Users user,@RequestParam("email")String to,String subject, String message) {
-
+	public String SaveRegistor(Model model,@ModelAttribute("user") Users user,@Param("password")String password,@RequestParam("email")String to,String subject, String message) {
 		Users _user = userRespo.findByUserName(user.getUserName());
 		if(_user==null) {
-			
-			Roles role = roleRepo.findByName("Customer");
+			Roles role = roleRepo.findByName("User");
+			PasswordEncoder encoder =  new BCryptPasswordEncoder();
+			String enPassword = password;
+			String encodePassword=encoder.encode(password);
+			user.setPassword(encodePassword);
+			user.setEnabled(true);
 			user.getRoles().add(role);
 			userRespo.save(user);
 		}
 		else {
 			String mess="tai khoan da ton tai";
+			model.addAttribute("mess",mess);
 			return"redirect:/register";
 		}
 			SimpleMailMessage msg =new SimpleMailMessage();
